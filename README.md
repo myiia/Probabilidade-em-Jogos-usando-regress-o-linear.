@@ -6,9 +6,11 @@ import numpy as np
 
 
 #df = pd.read_csv(".csv") dataset
+
 df = to_csv
 
 position = int(input("enter the desired position: "))
+
 score= int(input("enter current score: "))
 
 
