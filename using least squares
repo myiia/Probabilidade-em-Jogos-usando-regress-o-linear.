@@ -1,0 +1,58 @@
+import numpy as np
+from re import A
+import matplotlib.pyplot as plt
+import pandas as pd
+#numpy.linalg.inv.()
+
+df = pd.read_csv("pontos 2005 - 2023 (1).csv")
+posDesejada = 2
+pont = df.iloc[posDesejada]
+y = np.array(pont)
+n = len(y)
+x = np.array(range(n))
+
+def regressao(x,y): 
+    n = len(x)
+    sx = sum(x)
+    sy = sum(y)
+    sx2 = sum(x**2)
+    sxy = sum(x*y)
+    a0 = (sx2*sy - sxy*sx) / (n*sx2 - sx**2)
+    a1 = (n*sxy - sx*sy) / (n*sx2 - sx**2)
+    return a0, a1
+
+regressao(x,y)
+
+def matrizA(x):
+  n = len(x)
+  A = np.ones((n, 4)) 
+  A[:,1] = x
+  A[:,2] = np.sin(x)
+  A[:,3] = np.cos(x)
+  return A
+A = matrizA(x)
+print(matrizA(x))
+
+
+def coefRegressao(x, y):
+    A= matrizA(x)
+    B = A.T@A
+    B1 = np.linalg.inv(B)
+    x_sol = B1@(A.T)@y
+    return x_sol
+    print(x_sol)
+coef = coefRegressao(x, y)
+
+a0,a1,a2,a3 = coef
+
+print(coef)
+
+
+plt.scatter(x, y, c ='b', s=40)
+n = len(x)
+
+h = 0.1
+xx = np.arange(0, n+h, h)
+yy = a0+a1*xx + a2*np.sin(xx) + a3*np.cos(xx)
+plt.plot(xx,yy, c= "r")
+plt.show() 
