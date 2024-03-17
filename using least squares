@@ -1,3 +1,5 @@
+the least squares calculate the polynomial regression and fits the curve on the graph
+
 import numpy as np
 from re import A
 import matplotlib.pyplot as plt
